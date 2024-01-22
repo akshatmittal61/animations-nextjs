@@ -48,12 +48,13 @@ const HomePage: React.FC = () => {
 					<span
 						className="hero-3"
 						style={
-							isClient &&
-							window.innerHeight - window.scrollY < 100
-								? {
-										backgroundClip: "text",
-										color: "transparent",
-								  }
+							isClient
+								? window.innerHeight - window.scrollY < 100
+									? {
+											backgroundClip: "text",
+											color: "transparent",
+									  }
+									: {}
 								: {}
 						}
 					>
