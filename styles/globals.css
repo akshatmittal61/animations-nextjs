@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 body {
-	overflow-x: hidden;
 	font-family: Poppins, sans-serif;
+	position: relative;
+}
+
+body main {
+	position: relative;
 }
 
 .hero {

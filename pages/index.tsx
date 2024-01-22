@@ -1,39 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import anime from "animejs";
 
 const HomePage: React.FC = () => {
-	const width = 40;
-	const height = 40;
-
-	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+	const [isClient, setIsClient] = useState(false);
+	const handleHeroFont = () => {
 		anime({
-			targets: ".dot-point",
-			scale: [
-				{ value: 1.35, duration: 250, easing: "easeOutSine" },
-				{ value: 1, duration: 500, easing: "easeInOutQuad" },
+			targets: ".hero-text",
+			fontSize: [
+				{ value: "128px", duration: 0 },
+				{ value: `${Math.max(128 + window.scrollY, 128)}px` },
+			],
+			translateX: [
+				{ value: "0%", duration: 0 },
+				{ value: `-${Math.min(window.scrollY / 20, 100)}%` },
 			],
 			translateY: [
-				{ value: -15, duration: 250, easing: "easeOutSine" },
-				{ value: 0, duration: 500, easing: "easeInOutQuad" },
+				{ value: "0%", duration: 0 },
+				{ value: `-${Math.min(window.scrollY / 25, 100)}%` },
 			],
-			opacity: [
-				{ value: 1, duration: 250, easing: "easeOutSine" },
-				{ value: 0.5, duration: 500, easing: "easeInOutQuad" },
-			],
-			delay: anime.stagger(50, {
-				grid: [width, height],
-				from: +(e.currentTarget.getAttribute("data-index") ?? 0),
-			}),
+			easing: "easeInOutQuad",
+			duration: 0,
 		});
 	};
 
+	React.useEffect(() => {
+		setIsClient(true);
+		document.addEventListener("scroll", handleHeroFont);
+		return () => {
+			document.removeEventListener("scroll", handleHeroFont);
+		};
+	}, []);
+
 	return (
-		<main className="w-screen h-screen bg-gray-100">
-			<section className="hero w-full h-screen text-9xl flex justify-center items-center">
-				<span className="hero-1">Data</span>
-				<span className="hero-2">Magic</span>
-				<span className="hero-3">.</span>
+		<main className="w-screen bg-gray-100">
+			<section
+				className="hero bg-gray-100 sticky top-0 left-0 z-10 w-full h-screen text-9xl flex justify-center items-center"
+				style={{
+					backgroundColor: `rgba(0, 0, 0, ${
+						isClient ? Math.min(window.scrollY / 1000, 0.5) : 0
+					})`,
+				}}
+			>
+				<div className="hero-text whitespace-nowrap">
+					<span className="hero-1">Data</span>
+					<span className="hero-2">Magic</span>
+					<span
+						className="hero-3"
+						style={
+							isClient &&
+							window.innerHeight - window.scrollY < 100
+								? {
+										backgroundClip: "text",
+										color: "transparent",
+								  }
+								: {}
+						}
+					>
+						.
+					</span>
+				</div>
 			</section>
 			<section className="pc w-full h-screen" />
 			<section className="content w-full h-screen flex justify-between items-center flex-col">
@@ -56,27 +82,6 @@ const HomePage: React.FC = () => {
 							transformOrigin: "100% 0px 0px",
 						}}
 					></div>
-				</div>
-			</section>
-			<section className="w-full h-screen flex justify-center items-center">
-				<div
-					className="mesh grid w-fit"
-					style={{
-						gridTemplateColumns: `repeat(${width}, 1fr)`,
-					}}
-				>
-					{[...Array(width)].map((_, i) =>
-						[...Array(height)].map((_, j) => (
-							<div
-								key={`${i}-${j}`}
-								data-index={i + j * width}
-								onClick={handleClick}
-								className="mesh-grid group cursor-crosshair rounded-full p-2 transition-colors hover:bg-slate-600"
-							>
-								<div className="dot-point w-2 h-2 rounded-full bg-gradient-to-b from-slate-700 to-slate-400 opacity-50 group-hover:from-indigo-600 group-hover:to-white"></div>
-							</div>
-						))
-					)}
 				</div>
 			</section>
 		</main>
