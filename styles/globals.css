@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 body {
-    overflow-x: hidden;
-    font-family: Poppins, sans-serif;
+	overflow-x: hidden;
+	font-family: Poppins, sans-serif;
 }
 
 .hero {
-    font-weight: 600;
-    line-height: 125%;
+	font-weight: 600;
+	line-height: 125%;
 }
 .hero-1 {
 	color: #000;
@@ -22,4 +22,33 @@ body {
 }
 .hero-3 {
 	color: #c33a1e;
+}
+
+.pc {
+	background-image: url("/pc.jpeg");
+	background-size: cover;
+	background-position: center;
+}
+
+.content img {
+	height: 20%;
+	object-fit: cover;
+}
+
+.content-tiles {
+	height: 20%;
+}
+
+.animate-tiles {
+	animation: tiles 15s linear infinite;
+}
+
+@keyframes tiles {
+	0% {
+		transform: rotateX(45deg);
+	}
+
+	100% {
+		transform: rotateX(45deg);
+	}
 }
