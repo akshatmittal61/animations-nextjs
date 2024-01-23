@@ -1,7 +1,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const OpacitySection = () => {
+const PcSection = () => {
 	const controls = useAnimation();
 	const [scrollOpacity, setScrollOpacity] = useState(0);
 	const [position, setPosition] = useState<any>({
@@ -55,4 +55,4 @@ const OpacitySection = () => {
 	);
 };
 
-export default OpacitySection;
+export default PcSection;

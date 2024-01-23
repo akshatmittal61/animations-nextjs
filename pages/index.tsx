@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import OpacitySection from "@/components/pc";
+import PcSection from "@/components/pc";
 import Heading from "@/components/heading";
 
 const HomePage: React.FC = () => {
@@ -10,7 +10,7 @@ const HomePage: React.FC = () => {
 			style={{ height: "300vh" }}
 		>
 			<Heading />
-			<OpacitySection />
+			<PcSection />
 			<section className="content w-full h-screen flex justify-between items-center flex-col">
 				<Image src="/dots.svg" alt="dots" width={1920} height={1080} />
 				<h1 className="text-6xl text-center">
