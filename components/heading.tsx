@@ -36,7 +36,9 @@ const Heading = () => {
 		};
 	}, [controls]);
 	return (
-		<div className="w-full min-w-screen sticky top-0 left-0 h-screen text-nowrap">
+		<div
+            className="w-full min-w-screen sticky top-0 left-0 h-screen text-nowrap z-10 select-none"
+		>
 			<motion.h1
 				animate={controls}
 				transition={{ duration: 0 }}

@@ -30,6 +30,11 @@ body {
 	background-position: center;
 }
 
+section {
+	position: relative;
+	z-index: 20;
+}
+
 .content img {
 	height: 20%;
 	object-fit: cover;

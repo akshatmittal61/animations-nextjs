@@ -7,12 +7,10 @@ const HomePage: React.FC = () => {
 	return (
 		<main
 			className="w-full h-screen bg-gray-100 relative"
-			style={{ height: "600vh" }}
+			style={{ height: "300vh" }}
 		>
 			<Heading />
 			<OpacitySection />
-			<div style={{ marginTop: "200vh" }} />
-			{/* animate the above efor opacity */}
 			<section className="content w-full h-screen flex justify-between items-center flex-col">
 				<Image src="/dots.svg" alt="dots" width={1920} height={1080} />
 				<h1 className="text-6xl text-center">
