@@ -2,42 +2,53 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const SkewPage: React.FC = () => {
-    const [deg, setDeg] = useState(45);
-    useEffect(() => {
-        const handleScroll = () => {
-            // scroll from 0vh to 100vh, deg goes from 45 to 0
-            const scroll = window.scrollY;
-            const deg = 45 - (45 * scroll) / window.innerHeight;
-            setDeg(deg);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-    
+	const [deg, setDeg] = useState(45);
+	const [zoom, setZoom] = useState(1);
+	useEffect(() => {
+		const handleScroll = () => {
+			// scroll from 0vh to 75vh, deg goes from 45 to 0
+			// from 75vh to 150vh, zoom goes from 1 to 2
+			const scroll = window.scrollY;
+			if (scroll <= window.innerHeight * 0.75) {
+				const d = 45 - (45 * scroll) / (window.innerHeight * 0.75);
+				setDeg(d);
+				setZoom(1);
+			}
+			if (
+				scroll > window.innerHeight * 0.75 &&
+				scroll <= window.innerHeight * 2.5
+			) {
+				const z = scroll / (window.innerHeight * 0.75);
+				setZoom(z);
+			}
+			/* const d = 45 - (45 * scroll) / (window.innerHeight * 0.75);
+            const z = 1 + (scroll / (window.innerHeight * 0.75));
+            setDeg(d);
+            setZoom(z); */
+		};
+		window.addEventListener("scroll", handleScroll);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
 	return (
 		<main className="skew-page w-screen flex justify-center items-center">
-			{/* <div className="tv-screen">
-				<div className="tv-screen-inner"></div>
-            </div>
-            <div className="box box-1">Akshat X</div>
-            <div className="box box-2">Akshat Y</div>
-            <div className="box box-3">Akshat Z</div> */}
 			<section className="sec-1">
 				<div className="container">
 					<Image
 						src="/scene.png"
 						alt="scene"
 						width={1920}
-                        height={1080}
-                        style={{
-                            transform: `rotateY(${deg}deg)`
-                        }}
+						height={1080}
+						style={{
+							transform: `scale(${zoom}) rotateY(${deg}deg)`,
+						}}
 					/>
 				</div>
-            </section>
-            <section></section>
+			</section>
+			<section></section>
+			<section></section>
 		</main>
 	);
 };
